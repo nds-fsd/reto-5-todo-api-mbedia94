@@ -1,36 +1,38 @@
-const { todos } = require("../data/index");
+const { todoList } = require("../data/todoList");
 
 const getAllTodo = (req, res) => {
-  res.status(200).send({ Task: todos });
+  res.status(200).json({ Task: todoList });
 };
 
-const getUniqueTodo = (req, res) => {
+const getTodoById = (req, res) => {
   const todoId = parseInt(req.params.id);
-  const todoFound = todos.find((todo) => todo.id === todoId);
+  const todoFound = todoList.find((todo) => todo.id === todoId);
   if (todoFound) {
-    res.status(200).send(todoFound);
-  } else res.status(404).json({ error: "Todo not found" });
+    res.status(200).json(todoFound);
+  } else {
+    res.status(404).json({ error: "Todo not found" });
+  }
 };
 
 const createTodo = (req, res) => {
-  const lastId = todos.length > 0 ? todos[todos.length - 1].id : 0;
+  const lastId = todoList.length > 0 ? todoList[todoList.length - 1].id : 0;
   const newTodo = {
     id: lastId + 1,
     ...req.body,
   };
-  todos.push(newTodo);
-  res.send({ Task: newTodo });
+  todoList.push(newTodo);
+  res.status(201).json({ Task: newTodo });
 };
 
 const updateTodo = (req, res) => {
   const todoId = parseInt(req.params.id);
-  const todoIndex = todos.findIndex((todo) => todo.id === todoId);
+  const todoIndex = todoList.findIndex((todo) => todo.id === todoId);
   if (todoIndex !== -1) {
-    todos[todoIndex] = {
-      ...todos[todoIndex],
+    todoList[todoIndex] = {
+      ...todoList[todoIndex],
       ...req.body,
     };
-    res.status(200).json(todos[todoIndex]);
+    res.status(200).json(todoList[todoIndex]);
   } else {
     res.status(404).json({ error: "Todo not found" });
   }
@@ -38,9 +40,9 @@ const updateTodo = (req, res) => {
 
 const deleteTodo = (req, res) => {
   const todoId = parseInt(req.params.id);
-  const todoIndex = todos.findIndex((todo) => todo.id === todoId);
+  const todoIndex = todoList.findIndex((todo) => todo.id === todoId);
   if (todoIndex !== -1) {
-    todos.splice(todoIndex, 1);
+    todoList.splice(todoIndex, 1);
     res.status(204).send();
   } else res.status(404).json({ error: "Todo not found" });
 };
@@ -48,7 +50,7 @@ const deleteTodo = (req, res) => {
 module.exports = {
   getAllTodo,
   createTodo,
-  getUniqueTodo,
+  getTodoById,
   updateTodo,
   deleteTodo,
 };
