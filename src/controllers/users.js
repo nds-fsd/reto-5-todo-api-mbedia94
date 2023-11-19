@@ -15,6 +15,10 @@ const getUserById = (req, res) => {
 };
 
 const createUser = (req, res) => {
+  const { name, email, password } = req.body;
+  if (!name || !email || !password) {
+    return res.status(400).json({ error: 'Se requieren los campos name, email y password.' });
+  }
   const lastId = userList.length > 0 ? userList[userList.length - 1].id : 0;
   const newUser = {
     id: lastId + 1,
@@ -25,6 +29,10 @@ const createUser = (req, res) => {
 };
 
 const updateUser = (req, res) => {
+  const { name, email, password } = req.body;
+  if (!name || !email || !password) {
+    return res.status(400).json({ error: 'Se requieren los campos name, email y password.' });
+  }
   const userId = parseInt(req.params.id);
   const userIndex = userList.findIndex((user) => user.id === userId);
   if (userIndex !== -1) {

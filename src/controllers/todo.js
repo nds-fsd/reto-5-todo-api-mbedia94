@@ -15,6 +15,12 @@ const getTodoById = (req, res) => {
 };
 
 const createTodo = (req, res) => {
+  const { text, fecha, done } = req.body;
+  if (!text || !fecha || !done) {
+    return res
+      .status(400)
+      .json({ error: "Se requieren los campos text, fecha y done." });
+  }
   const lastId = todoList.length > 0 ? todoList[todoList.length - 1].id : 0;
   const newTodo = {
     id: lastId + 1,
@@ -25,6 +31,12 @@ const createTodo = (req, res) => {
 };
 
 const updateTodo = (req, res) => {
+  const { text, fecha, done } = req.body;
+  if (!text || !fecha || !done) {
+    return res
+      .status(400)
+      .json({ error: "Se requieren los campos text, fecha y done." });
+  }
   const todoId = parseInt(req.params.id);
   const todoIndex = todoList.findIndex((todo) => todo.id === todoId);
   if (todoIndex !== -1) {
