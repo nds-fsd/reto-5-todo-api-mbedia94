@@ -40,7 +40,7 @@ const updateUser = (req, res) => {
       ...userList[userIndex],
       ...req.body,
     };
-    res.status(200).json(userList[userIndex]);
+    res.status(201).json(userList[userIndex]);
   } else {
     res.status(404).json({ error: "User not found" });
   }
