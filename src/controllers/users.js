@@ -2,7 +2,7 @@ let { userList } = require("../data/userList");
 
 const getAllUsers = (req, res) => {
   try {
-    res.status(200).json({ Users: userList });
+    res.status(200).json(userList);
   } catch (error) {
     console.log(error);
   }
@@ -36,7 +36,7 @@ const createUser = (req, res) => {
       ...req.body,
     };
     userList.push(newUser);
-    res.status(201).json({ User: newUser });
+    res.status(201).json(newUser);
   } catch (error) {
     console.log(error);
   }

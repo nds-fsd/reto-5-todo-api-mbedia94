@@ -2,7 +2,7 @@ const { todoList } = require("../data/todoList");
 
 const getAllTodo = (req, res) => {
   try {
-    res.status(200).json({ Task: todoList });
+    res.status(200).json(todoList);
   } catch (error) {
     console.log(error);
   }
@@ -23,12 +23,12 @@ const getTodoById = (req, res) => {
 };
 
 const createTodo = (req, res) => {
-  const { text, fecha, done } = req.body;
+  const { text, fecha } = req.body;
   try {
-    if (!text || !fecha || !done) {
+    if (!text || !fecha) {
       return res
         .status(400)
-        .json({ error: "Se requieren los campos text, fecha y done." });
+        .json({ error: "Se requieren los campos text y fecha." });
     }
     const lastId = todoList.length > 0 ? todoList[todoList.length - 1].id : 0;
     const newTodo = {
@@ -36,7 +36,7 @@ const createTodo = (req, res) => {
       ...req.body,
     };
     todoList.push(newTodo);
-    res.status(201).json({ Task: newTodo });
+    res.status(201).json(newTodo);
   } catch (error) {
     console.log(error);
   }
