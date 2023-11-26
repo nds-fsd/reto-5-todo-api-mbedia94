@@ -15,7 +15,7 @@ const getUserById = (req, res) => {
     if (userFound) {
       res.status(200).json(userFound);
     } else {
-      res.status(404).json({ error: "User not found" });
+      res.status(404).json({ error: "Usuarios no encontrado" });
     }
   } catch (error) {
     console.log(error);
@@ -43,13 +43,7 @@ const createUser = (req, res) => {
 };
 
 const updateUser = (req, res) => {
-  const { name, email, password } = req.body;
   try {
-    if (!name || !email || !password) {
-      return res
-        .status(400)
-        .json({ error: "Se requieren los campos name, email y password." });
-    }
     const userId = parseInt(req.params.id);
     const userIndex = userList.findIndex((user) => user.id === userId);
     if (userIndex !== -1) {
@@ -59,7 +53,7 @@ const updateUser = (req, res) => {
       };
       res.status(201).json(userList[userIndex]);
     } else {
-      res.status(404).json({ error: "User not found" });
+      res.status(404).json({ error: "Usuarios no encontrado" });
     }
   } catch (error) {
     console.log(error);
@@ -73,7 +67,7 @@ const deleteUser = (req, res) => {
     if (userIndex !== -1) {
       userList.splice(userIndex, 1);
       res.status(204).send();
-    } else res.status(404).json({ error: "User not found" });
+    } else res.status(404).json({ error: "Usuarios no encontrado" });
   } catch (error) {
     console.log(error);
   }

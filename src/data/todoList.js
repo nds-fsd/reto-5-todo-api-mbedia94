@@ -1,18 +1,18 @@
 exports.todoList = [
   {
-    id: 0,
+    id: 1,
     text: "Hacer la cama",
     fecha: new Date("2023-11-18"),
     done: false,
   },
   {
-    id: 1,
+    id: 2,
     text: "Ir al super",
     fecha: new Date("2023-11-14"),
     done: true,
   },
   {
-    id: 2,
+    id: 3,
     text: "Hacer deporte",
     fecha: new Date("2023-11-15"),
     done: true,
